@@ -54,7 +54,7 @@ ament_target_dependencies(brightness
 
 # Install targets.
 install(TARGETS rainbow brightness show_one all_off run
-  EXPORT export_${PROJECT_NAME}
+  EXPORT ${PROJECT_NAME}
   DESTINATION lib/${PROJECT_NAME})
 
 ament_package()
