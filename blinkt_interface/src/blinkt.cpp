@@ -65,7 +65,7 @@ void Blinkt::setPixel(uint8_t pixel_number, const Pixel & pixel)
     }
 }
 
-void Blinkt::display()
+void Blinkt::display() const
 {
     // Write bus pixels to bus.
     start_frame();
@@ -79,7 +79,7 @@ void Blinkt::display()
     end_frame();
 }
 
-void Blinkt::write_byte(uint8_t byte)
+void Blinkt::write_byte(uint8_t byte) const
 {
     for (unsigned int cnt = 0; cnt < 8; cnt++)
     {
@@ -92,7 +92,7 @@ void Blinkt::write_byte(uint8_t byte)
     }
 }
 
-void Blinkt::start_frame()
+void Blinkt::start_frame() const
 {
     _data_line.set_value(0);
     for (unsigned int cnt = 0; cnt < 32; cnt++)
@@ -104,7 +104,7 @@ void Blinkt::start_frame()
     }
 }
 
-void Blinkt::end_frame()
+void Blinkt::end_frame() const
 {
     _data_line.set_value(0);
     for (unsigned int cnt = 0; cnt < 36; cnt++)
