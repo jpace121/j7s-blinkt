@@ -38,7 +38,7 @@ install(
 )
 install(
   TARGETS blinkt
-  EXPORT export_${PROJECT_NAME}
+  EXPORT ${PROJECT_NAME}
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin
@@ -59,7 +59,7 @@ ament_export_include_directories(
   include
 )
 ament_export_targets(
-  export_${PROJECT_NAME}
+  ${PROJECT_NAME}
 )
 ament_export_libraries(
   blinkt
