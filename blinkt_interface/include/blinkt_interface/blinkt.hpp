@@ -75,14 +75,14 @@ public:
     Blinkt();
     void setPixel(uint8_t pixel_number, const Pixel & pixel);
     PixelArray & getPixelArray();
-    void display();
+    void display() const;
     void clear();
     unsigned int number_of_pixels() const;
 
 private:
-    void write_byte(uint8_t byte);
-    void start_frame();
-    void end_frame();
+    void write_byte(uint8_t byte) const;
+    void start_frame() const;
+    void end_frame() const;
     std::vector<BusPixel> getBusPixels() const;
 
     const unsigned int _data_pin_number{23};
