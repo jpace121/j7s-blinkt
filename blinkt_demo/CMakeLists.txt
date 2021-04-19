@@ -24,33 +24,18 @@ find_package(blinkt_interface REQUIRED)
 
 add_executable(show_one src/show_one.cpp)
 target_link_libraries(show_one blinkt_interface::blinkt)
-ament_target_dependencies(show_one
-  "blinkt_interface"
-)
 
 add_executable(all_off src/all_off.cpp)
 target_link_libraries(all_off blinkt_interface::blinkt)
-ament_target_dependencies(all_off
-  "blinkt_interface"
-)
 
 add_executable(run src/run.cpp)
 target_link_libraries(run blinkt_interface::blinkt)
-ament_target_dependencies(run
-  "blinkt_interface"
-)
 
 add_executable(rainbow src/rainbow.cpp)
 target_link_libraries(rainbow blinkt_interface::blinkt)
-ament_target_dependencies(rainbow
-  "blinkt_interface"
-)
 
 add_executable(brightness src/brightness.cpp)
 target_link_libraries(brightness blinkt_interface::blinkt)
-ament_target_dependencies(brightness
-  "blinkt_interface"
-)
 
 # Install targets.
 install(TARGETS rainbow brightness show_one all_off run
