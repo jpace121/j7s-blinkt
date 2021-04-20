@@ -1,0 +1,15 @@
+# - Config file for the blinkt_interface package
+# It defines the following variables
+#  blinkt_interface_INCLUDE_DIRS - include directories for FooBar
+#  blinkt_interface_LIBRARIES    - libraries to link against
+#  blinkt_interface_EXECUTABLE   - the bar executable
+
+set(blinkt_interface_INCLUDE_DIRS "@CONF_INCLUDE_DIRS@")
+
+# Our library dependencies (contains definitions for IMPORTED targets)
+include("${blinkt_interface_DIR}/export_blinkt_interface.cmake")
+
+# These are IMPORTED targets created by blinkt_interfaceTargets.cmake
+set(blinkt_interface_LIBRARIES blinkt)
+
+

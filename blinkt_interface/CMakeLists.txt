@@ -18,10 +18,13 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   endif()
 endif()
 
-# find dependencies
-find_package(ament_cmake REQUIRED)
+set(blinkt_interface_MAJOR_VERSION 0)
+set(blinkt_interface_MINOR_VERSION 0)
+set(blinkt_interface_PATCH_VERSION 0)
+set(blinkt_interface_VERSION
+  ${blinkt_interface_MAJOR_VERSION}.${blinkt_interface_MINOR_VERSION}.${blinkt_interface_PATCH_VERSION})
 
-add_library(blinkt src/blinkt.cpp)
+add_library(blinkt SHARED src/blinkt.cpp)
 target_include_directories(blinkt PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
@@ -38,31 +41,32 @@ install(
 )
 install(
   TARGETS blinkt
-  EXPORT ${PROJECT_NAME}
+  EXPORT export_${PROJECT_NAME}
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin
 )
+# export targets
+set(export_targets ${export_targets};blinkt)
+export(EXPORT export_blinkt_interface
+  FILE "${PROJECT_BINARY_DIR}/export_blinkt_interface.cmake")
 
-if(BUILD_TESTING)
-  find_package(ament_lint_auto REQUIRED)
-  # the following line skips the linter which checks for copyrights
-  # uncomment the line when a copyright and license is not present in all source files
-  #set(ament_cmake_copyright_FOUND TRUE)
-  # the following line skips cpplint (only works in a git repo)
-  # uncomment the line when this package is not in a git repo
-  #set(ament_cmake_cpplint_FOUND TRUE)
-  ament_lint_auto_find_test_dependencies()
-endif()
+# Create the blinkt_interfaceConfig.cmake
+set(CONF_INCLUDE_DIRS "${CMAKE_INSTALL_PREFIX}/include")
+configure_file(blinkt_interfaceConfig.cmake.in
+  "${PROJECT_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/blinkt_interfaceConfig.cmake" @ONLY)
 
-ament_export_include_directories(
-  include
-)
-ament_export_targets(
-  ${PROJECT_NAME}
-)
-ament_export_libraries(
-  blinkt
-)
+# Create the blinkt_interfaceConfigVersion.cmake
+configure_file(blinkt_interfaceConfigVersion.cmake.in
+  "${PROJECT_BINARY_DIR}/blinkt_interfaceConfigVersion.cmake" @ONLY)
 
-ament_package()
+install(FILES
+  "${PROJECT_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/blinkt_interfaceConfig.cmake"
+  "${PROJECT_BINARY_DIR}/blinkt_interfaceConfigVersion.cmake"
+  DESTINATION "share/${PROJECT_NAME}/cmake" COMPONENT dev)
+install(EXPORT export_blinkt_interface
+  DESTINATION "share/${PROJECT_NAME}/cmake"
+  FILE export_blinkt_interface.cmake
+  NAMESPACE "${PROJECT_NAME}::"
+  COMPONENT dev)
+
