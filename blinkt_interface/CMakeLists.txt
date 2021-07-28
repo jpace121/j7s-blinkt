@@ -49,7 +49,8 @@ install(
 # export targets
 set(export_targets ${export_targets};blinkt)
 export(EXPORT export_blinkt_interface
-  FILE "${PROJECT_BINARY_DIR}/export_blinkt_interface.cmake")
+  FILE "${PROJECT_BINARY_DIR}/export_blinkt_interface.cmake"
+  NAMESPACE blinkt_interface::)
 
 # Create the blinkt_interfaceConfig.cmake
 set(CONF_INCLUDE_DIRS "${CMAKE_INSTALL_PREFIX}/include")
